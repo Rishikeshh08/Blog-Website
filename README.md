@@ -1,70 +1,33 @@
-# Getting Started with Create React App
+Project Title: Blog Website
+Link: https://rishikeshh08.github.io/Blog-Website/
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Technologies: React.js, React Router, Context API, JavaScript, Fetch API, CSS3
 
-## Available Scripts
+Description
+Built responsive blog website with dynamic routing system connecting 4+ page types (posts, categories,tags) using React Router
+Integrated multiple API endpoints for content fetching across different blog categories and tags.
+Implemented Context API for centralized state management, eliminating prop drilling across components 
 
-In the project directory, you can run:
+Things i learned:
+ContextAPI
+useLocation
+dynamic path in <Route>
+handled nultiple apis throught single async function and useEffect
+hide scroll bar while still being able to use scroll
 
-### `npm start`
+Common Issue Faced – category.replace is not a function
+While working on this project, I encountered a runtime error:
+TypeError: category.replace is not a function
+This error occurred when I clicked on a category/tag link immediately after a page reload. It typically happened before the data was fully fetched, meaning the category variable was either undefined, null, or not yet a string. So calling .replace() on it led to a crash.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Root Cause
+category.replace(" ", "-")
+even when category wasn’t ready or wasn’t a string. Since .replace() is a string method, this threw an error when category was anything else.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+ How I Fixed It
+I applied two key solutions:
+1. Added a Loader
+2. Used Defensive Programming: Ensured category was a string before calling .replace().
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Takeaway
+It's important to validate and sanitize data before performing string operations, especially in components that render based on asynchronous API responses. Adding basic type checks can prevent unnecessary crashes and improve UX.
